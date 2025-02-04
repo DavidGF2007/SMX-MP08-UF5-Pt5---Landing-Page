@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FútbolTV- Black Friday Fútbol</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #121212;
+      color: #E1E1E1;
+      text-align: center;
+    }
+
+    header {
+      background: linear-gradient(135deg, #ffdd00, #f1c40f);
+      padding: 60px 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #333;
+      margin-top: 10px;
+    }
+
+    nav {
+      background-color: #1F2D40;
+      padding: 15px 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 25px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffdd00;
+    }
+
+    section {
+      display: none;
+      padding: 60px 20px;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    .why-choose-us {
+      background-color: #1F2D40;
+      border-radius: 10px;
+      margin: 30px 0;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 20px;
+    }
+
+    .feature {
+      background: #2C3E50;
+      border-radius: 10px;
+      padding: 25px;
+      color: #fff;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature:hover {
+      background-color: #ffdd00;
+      color: #333;
+      transform: translateY(-10px);
+    }
+
+    .price-section {
+      background-color: #949494;
+      color: white;
+      padding: 60px 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .price-card {
+      background-color: #2C3E50;
+      display: inline-block;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+    }
+
+    .price-card h2 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .price-card p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .price-card ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 20px;
+    }
+
+    .price-card li {
+      margin: 10px 0;
+      font-size: 1.1rem;
+    }
+
+    .price-card button {
+      background-color: #ffdd00;
+      color: #333;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .price-card button:hover {
+      background-color: #f1c40f;
+    }
+
+    .subscription-form {
+      background-color: #34495E;
+      padding: 40px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: 0 auto;
+      color: white;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .subscription-form input,
+    .subscription-form button {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      border: 2px solid #2C3E50;
+      border-radius: 30px;
+      font-size: 1rem;
+    }
+
+    .subscription-form input {
+      background-color: #2C3E50;
+      color: #fff;
+    }
+
+    .subscription-form button {
+      background-color: #ffdd00;
+      color: #333;
+      font-size: 1.1rem;
+    }
+
+    .subscription-form button:hover {
+      background-color: #f1c40f;
+    }
+
+    .faq-section {
+      background-color: #1F2D40;
+      padding: 60px 20px;
+    }
+
+    .faq {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      padding: 20px;
+    }
+
+    .faq-item {
+      background-color: #34495E;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      background: linear-gradient(135deg, #ffdd00, #f1c40f);
+      padding: 30px;
+      text-align: center;
+      color: #333;
+      margin-top: 60px;
+    }
+
+    footer p {
+      font-size: 1rem;
+      color: #333;
+    }
+
+  </style>
+  <script>
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => section.classList.remove('active'));
+      document.getElementById(sectionId).classList.add('active');
+    }
+
+    window.onload = () => {
+      showSection('why-choose-us');
+
+      document.querySelectorAll('.feature').forEach((feature, index) => {
+        feature.addEventListener('click', () => {
+          showSection(`feature-section-${index + 1}`);
+        });
+      });
+    };
+
+    function showSubscriptionForm() {
+      showSection('subscription-form');
+    }
+
+    function processSubscription() {
+      alert('¡Suscripción realizada con éxito!');
+      showSection('price-section');
+    }
+  </script>
+</head>
+<body>
+
+<header>
+  <h1>Black Friday FutbolTV</h1>
+  <p>Aprovecha ofertas increíbles para verdaderos fans del FutbolTV</p>
+</header>
+
+<nav>
+  <a onclick="showSection('why-choose-us')">¿Por qué elegirnos?</a>
+  <a onclick="showSection('price-section')">Precios</a>
+  <a onclick="showSection('faq-section')">Preguntas Frecuentes</a>
+</nav>
+
+<section id="why-choose-us" class="why-choose-us active">
+  <h2>¿Por qué elegirnos?</h2>
+  <div class="features">
+    <div class="feature">
+      <h3>Ofertas exclusivas</h3>
+      <p>Disfruta de partidos exclusivos</p>
+    </div>
+    <div class="feature">
+      <h3>Transmisión en Vivo</h3>
+      <p>Sigue los partidos de tus equipos favoritos.</p>
+    </div>
+    <div class="feature">
+      <h3>Promociones irresistibles</h3>
+      <p>Aprovecha las mejores ofertas de la temporada.</p>
+    </div>
+  </div>
+</section>
+
+<section id="feature-section-1">
+  <h2>Acceso Exclusivo</h2>
+  <p>Explora contenido exclusivo como entrevistas, análisis y mucho más solo para suscriptores.</p>
+</section>
+
+<section id="feature-section-2">
+  <h2>Transmisión en Vivo</h2>
+  <p>Disfruta de cada partido en alta definición desde cualquier dispositivo.</p>
+</section>
+
+<section id="feature-section-3">
+  <h2>Promociones Imperdibles</h2>
+  <p>No te pierdas ofertas y descuentos especiales durante toda la temporada.</p>
+</section>
+
+<section id="price-section" class="price-section">
+  <div class="price-card">
+    <h2>100€</h2>
+    <p>Suscripción Anual</p>
+    <ul>
+      <li>Acceso total a partidos</li>
+      <li>Transmisión HD</li>
+      <li>Descuentos exclusivos</li>
+    </ul>
+    <button onclick="showSubscriptionForm()">Suscribirme</button>
+  </div>
+</section>
+
+<section id="subscription-form" class="subscription-form">
+  <h2>Formulario de Suscripción</h2>
+  <form onsubmit="event.preventDefault(); processSubscription();">
+    <input type="text" placeholder="Nombre Completo" required>
+    <input type="email" placeholder="Correo Electrónico" required>
+    <input type="text" placeholder="Número de Tarjeta" required>
+    <button type="submit">Confirmar Suscripción</button>
+  </form>
+</section>
+
+<section id="faq-section" class="faq-section">
+  <h2>Preguntas Frecuentes</h2>
+  <div class="faq">
+    <div class="faq-item">
+      <h3>¿Cómo me suscribo?</h3>
+      <p>Haz clic en el botón de suscripción y sigue los pasos.</p>
+    </div>
+    <div class="faq-item">
+      <h3>¿Se puede cancelar?</h3>
+      <p>Sí, puedes cancelar en cualquier momento.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 Black Friday FutbolTV. Todos los derechos reservados.</p>
+</footer>
+
+</body>
+</html>
